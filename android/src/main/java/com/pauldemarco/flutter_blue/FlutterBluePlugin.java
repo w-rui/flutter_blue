@@ -646,9 +646,10 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
             } else {
                 pendingResult.error(
                         "no_permissions", "flutter_blue plugin requires location permissions for scanning", null);
-                pendingResult = null;
-                pendingCall = null;
             }
+
+            pendingResult = null;
+            pendingCall = null;
             return true;
         }
         return false;
