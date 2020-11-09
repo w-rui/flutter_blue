@@ -169,6 +169,7 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
 
     private void tearDown() {
         Log.i(TAG, "teardown");
+        stateHandler.onCancel(null);
         context = null;
         activityBinding.removeRequestPermissionsResultListener(this);
         activityBinding = null;
@@ -775,6 +776,10 @@ public class FlutterBluePlugin implements FlutterPlugin, ActivityAware, MethodCa
                 @Override
                 public void onScanResult(int callbackType, ScanResult result) {
                     super.onScanResult(callbackType, result);
+                    
+                    if (channel == null)
+                        return;
+
                     if (!allowDuplicates && result != null && result.getDevice() != null && result.getDevice().getAddress() != null) {
                         if (macDeviceScanned.contains(result.getDevice().getAddress())) return;
                         macDeviceScanned.add(result.getDevice().getAddress());
